@@ -75,9 +75,18 @@
         }
 
         function showDistance(distance) {
-          document.getElementById("distance").innerText =
-            "La distancia entre las ubicaciones es: " + distance;
-        }
+            const distanceText = "La distancia entre las ubicaciones es: " + distance;
+            document.getElementById("distance").innerText = distanceText;
+
+            // Parse la distancia (remueve el " km" al final)
+            const distanceInKm = parseFloat(distance.replace(" km", ""));
+            
+            // Compara la distancia con 0.3 km
+            if (distanceInKm < 0.3) {
+                const notificationSound = document.getElementById("notificationSound");
+                notificationSound.play();
+            }
+            }
       }
 
       window.initMap = initMap;
@@ -129,5 +138,9 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE1CQnb_tlNwl2HIUKVwbsKHjlly6zkD4&callback=initMap&v=weekly"
       defer
     ></script>
+    <audio id="notificationSound" preload="auto">
+        <source src="noitif.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+      </audio>
   </body>
 </html>
