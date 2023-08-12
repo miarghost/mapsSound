@@ -57,6 +57,11 @@
           });
         }
 
+        function sonido() {
+            const notificationSound = document.getElementById("notificationSound");
+            notificationSound.play();   
+        }
+
         function calculateDistance(origin, destination) {
           const service = new google.maps.DistanceMatrixService();
           const request = {
@@ -75,8 +80,6 @@
         }
 
         function showDistance(distance) {
-            sonido();
-
           document.getElementById("distance").innerText =
             "La distancia entre las ubicaciones es: " + distance;
 
@@ -136,7 +139,7 @@
       <div id="sidebar">
         <h3 style="flex-grow: 0">Distancia</h3>
         <p id="distance"></p>
-        <button onclick="sonido()">Reproducir Sonido</button>
+        <button onclick="sonido2()">Reproducir Sonido</button>
         <audio id="notificationSound">
           <source src="noitif.mp3" type="audio/mpeg">
           Tu navegador no soporta el elemento de audio.
@@ -144,7 +147,7 @@
       </div>
     </div>
     <script>
-        function sonido() {
+        function sonido2() {
             const notificationSound = document.getElementById("notificationSound");
             notificationSound.play();   
         }
