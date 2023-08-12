@@ -75,18 +75,24 @@
         }
 
         function showDistance(distance) {
-            const distanceText = "La distancia entre las ubicaciones es: " + distance;
-            document.getElementById("distance").innerText = distanceText;
+          document.getElementById("distance").innerText =
+            "La distancia entre las ubicaciones es: " + distance;
 
-            // Parse la distancia (remueve el " km" al final)
-            const distanceInKm = parseFloat(distance.replace(" km", ""));
-            
-            // Compara la distancia con 3.0 km
-            if (distanceInKm < 3.0) {
-                const notificationSound = document.getElementById("notificationSound");
-                notificationSound.play();
-            }
-            }
+          // Parse la distancia (remueve el " km" al final)
+          const distanceInKm = parseFloat(distance.replace(" km", ""));
+          
+          // Compara la distancia con 0.3 km
+          if (distanceInKm < 3.3) {
+            const notificationSound = document.getElementById("notificationSound");
+            notificationSound.play();
+          }
+        }
+        
+        // Reproducir el sonido cuando se haga clic en el botón
+        document.getElementById("playButton").addEventListener("click", function() {
+          const notificationSound = document.getElementById("notificationSound");
+          notificationSound.play();
+        });
       }
 
       window.initMap = initMap;
@@ -132,15 +138,16 @@
       <div id="sidebar">
         <h3 style="flex-grow: 0">Distancia</h3>
         <p id="distance"></p>
+        <button id="playButton">Reproducir Sonido</button>
+        <audio id="notificationSound">
+          <source src="noitif.mp3" type="audio/mpeg">
+          Tu navegador no soporta el elemento de audio.
+        </audio>
       </div>
     </div>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE1CQnb_tlNwl2HIUKVwbsKHjlly6zkD4&callback=initMap&v=weekly"
       defer
     ></script>
-    <audio id="notificationSound" preload="auto">
-        <source src="noitif.mp3" type="audio/mpeg">
-        Tu navegador no soporta el elemento de audio.
-      </audio>
   </body>
 </html>
