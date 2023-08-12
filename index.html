@@ -80,13 +80,17 @@
 
           // Parse la distancia (remueve el " km" al final)
           const distanceInKm = parseFloat(distance.replace(" km", ""));
-          alert(distanceInKm<3.3);
 
           // Compara la distancia con 0.3 km
           if (distanceInKm < 3.3) {
+            alert("1");
             const notificationSound = document.getElementById("notificationSound");
+            alert("1.2");
+            
             notificationSound.play();
-          }
+            alert("2");
+          
+        }
         }
         
         // Reproducir el sonido cuando se haga clic en el botón
