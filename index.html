@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mapa con Sonido</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE1CQnb_tlNwl2HIUKVwbsKHjlly6zkD4"></script>
+    <title>Mapa con Ubicación</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY"></script>
 </head>
 <body>
 
@@ -10,11 +10,12 @@
 
 <script>
     var marcadorUbicacion = null; // La ubicación del marcador será establecida por el usuario
-    var distanciaMaxima = 100000.03; // 0.03 grados es aproximadamente 30 metros
+    var distanciaMaxima = 0.03; // 0.03 grados es aproximadamente 30 metros
+    var map = null;
 
     // Función para reproducir un sonido
     function reproducirSonido() {
-        var audio = new Audio('noitif.mp3');
+        var audio = new Audio('notifi.mp3');
         audio.play();
     }
 
@@ -41,7 +42,7 @@
         };
 
         // Calcular la distancia entre las dos ubicaciones
-        var distancia = calcularDistancia(userLocation.lat, userLocation.lng, marcadorUbicacion.lat, marcadorUbicacion.lng);
+        var distancia = calcularDistancia(userLocation.lat, userLocation.lng, marcadorUbicacion.getPosition().lat(), marcadorUbicacion.getPosition().lng());
 
         // Comprobar si la distancia es menor o igual a la distancia máxima permitida
         if (distancia <= distanciaMaxima) {
@@ -55,7 +56,7 @@
             center: { lat: -34.6037, lng: -58.3816 }, // Coordenadas de Buenos Aires, Capital Federal
             zoom: 12
         };
-        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
         // Agregar un evento para que el usuario pueda seleccionar la ubicación del marcador
         map.addListener('click', function(event) {
@@ -71,9 +72,29 @@
             // Iniciar el seguimiento continuo de la ubicación
             navigator.geolocation.watchPosition(verificarUbicacion);
         });
+
+        // Obtener y mostrar la ubicación del usuario
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var userLocation = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                // Crear un marcador para la ubicación del usuario
+                var userMarker = new google.maps.Marker({
+                    position: userLocation,
+                    map: map,
+                    title: 'Tu ubicación'
+                });
+
+                // Centrar el mapa en la ubicación del usuario
+                map.setCenter(userLocation);
+            });
+        }
     }
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE1CQnb_tlNwl2HIUKVwbsKHjlly6zkD4&callback=initMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap"></script>
 
 </body>
 </html>
