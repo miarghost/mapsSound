@@ -43,8 +43,7 @@
         };
 
         // Calcular la distancia entre las dos ubicaciones
-        var distancia = calcularDistancia(userLocation.lat, userLocation.lng, marcadorUbicacion.getPosition().lat(), marcadorUbicacion.getPosition().lng());
-
+        var distancia = calcularDistancia(userLocation.lat, userLocation.lng, marcadorUbicacion.getPosition().lat(), marcadorUbicacion.getPosition().lng()) / 111;
         // Comprobar si la distancia es menor o igual a la distancia máxima permitida
         if (distancia <= distanciaMaxima) {
             reproducirSonido();
@@ -69,6 +68,7 @@
                 map: map,
                 title: 'Ubicación seleccionada'
             });
+
 
             // Iniciar el seguimiento continuo de la ubicación
             navigator.geolocation.watchPosition(verificarUbicacion);
