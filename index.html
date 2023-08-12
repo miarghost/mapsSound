@@ -2,8 +2,7 @@
 <html>
 <head>
     <title>Mapa con Ubicación</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE1CQnb_tlNwl2HIUKVwbsKHjlly6zkD4&callback=initMap"></script>
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE1CQnb_tlNwl2HIUKVwbsKHjlly6zkD4&callback=initMap" async defer></script>
 </head>
 <body>
     <button onclick="reproducirSonido()">Reproducir Sonido</button>
@@ -11,10 +10,10 @@
     <div id="error-message" style="color: red;"></div>
 
     <script>
-
         var marcadorUbicacion = null;
         var distanciaMaxima = 1.0; // Cambia esto según tus necesidades
         var map = null;
+        var userLocation = null;
 
         // Función para reproducir un sonido
         function reproducirSonido() {
@@ -24,7 +23,7 @@
 
         // Verificar la distancia entre la ubicación actual y la ubicación marcada
         function verificarDistancia() {
-            if (!marcadorUbicacion) {
+            if (!marcadorUbicacion || !userLocation) {
                 return;
             }
 
@@ -74,7 +73,7 @@
             // Obtener y mostrar la ubicación del usuario
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
-                    var userLocation = {
+                    userLocation = {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
                     };
