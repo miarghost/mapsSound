@@ -7,6 +7,7 @@
 <body>
 
 <div id="map" style="width: 100%; height: 400px;"></div>
+<div id="error-message" style="color: red;"></div>
 
 <script>
     var marcadorUbicacion = null; // La ubicación del marcador será establecida por el usuario
@@ -15,7 +16,7 @@
 
     // Función para reproducir un sonido
     function reproducirSonido() {
-        var audio = new Audio('notifi.mp3');
+        var audio = new Audio('noitif.mp3');
         audio.play();
     }
 
@@ -90,7 +91,13 @@
 
                 // Centrar el mapa en la ubicación del usuario
                 map.setCenter(userLocation);
+            }, function(error) {
+                // Mostrar un mensaje de error si la geolocalización no está disponible o fue denegada
+                document.getElementById('error-message').textContent = 'No se pudo obtener la ubicación. ' + error.message;
             });
+        } else {
+            // Mostrar un mensaje de error si la geolocalización no es compatible con el navegador
+            document.getElementById('error-message').textContent = 'La geolocalización no es compatible con este navegador.';
         }
     }
 </script>
