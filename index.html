@@ -10,7 +10,7 @@
 
     <script>
         var marcadorUbicacion = null;
-        var distanciaMaxima = 1.0; // Cambia esto según tus necesidades
+        var distanciaMaxima = 111.0; // Cambia esto según tus necesidades
         var map = null;
         var userLocation = null;
 
@@ -54,21 +54,6 @@
             };
             map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-            // Agregar un evento para que el usuario pueda seleccionar la ubicación del marcador
-            map.addListener('click', function(event) {
-                if (marcadorUbicacion) {
-                    marcadorUbicacion.setMap(null); // Eliminar marcador anterior
-                }
-                marcadorUbicacion = new google.maps.Marker({
-                    position: event.latLng,
-                    map: map,
-                    title: 'Ubicación seleccionada'
-                });
-
-                // Iniciar la verificación de distancia
-                verificarDistancia();
-            });
-
             // Obtener y mostrar la ubicación del usuario
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function(position) {
@@ -84,8 +69,18 @@
                         title: 'Tu ubicación'
                     });
 
+                    // Crear un marcador inicial para la ubicación del usuario al cargar la página
+                    marcadorUbicacion = new google.maps.Marker({
+                        position: userLocation,
+                        map: map,
+                        title: 'Ubicación seleccionada'
+                    });
+
                     // Centrar el mapa en la ubicación del usuario
                     map.setCenter(userLocation);
+
+                    // Iniciar la verificación de distancia
+                    verificarDistancia();
                 }, function(error) {
                     // Mostrar un mensaje de error si la geolocalización no está disponible o fue denegada
                     document.getElementById('error-message').textContent = 'No se pudo obtener la ubicación. ' + error.message;
@@ -96,7 +91,7 @@
             }
         }
     </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE1CQnb_tlNwl2HIUKVwbsKHjlly6zkD4&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE1CQnb_tlNwl2HIUKVwbsKHjlly6zkD4&callback=initMap" async defer></script>
 
 </body>
 </html>
