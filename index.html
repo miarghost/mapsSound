@@ -79,19 +79,7 @@
           });
         }
 
-        function showDistance(distance) {
-          document.getElementById("distance").innerText =
-            "La distancia entre las ubicaciones es: " + distance;
 
-          // Parse la distancia (remueve el " km" al final)
-          const distanceInKm = parseFloat(distance.replace(" km", ""));
-
-          // Compara la distancia con 0.3 km
-          if (distanceInKm < 3.3) {
-            sonido();
-            sonido2();
-        }
-        }
         
         // Reproducir el sonido cuando se haga clic en el botón
 
@@ -148,7 +136,22 @@
       </div>
     </div>
     <script>
-        function sonido2() {
+              function showDistance(distance) {
+          document.getElementById("distance").innerText =
+            "La distancia entre las ubicaciones es: " + distance;
+
+          // Parse la distancia (remueve el " km" al final)
+          const distanceInKm = parseFloat(distance.replace(" km", ""));
+
+          // Compara la distancia con 0.3 km
+          if (distanceInKm < 3.3) {
+            sonido();
+            sonido2();
+        }
+        }
+
+
+      function sonido2() {
             const notificationSound = document.getElementById("notificationSound");
             notificationSound.play();   
         }
